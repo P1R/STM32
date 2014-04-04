@@ -1,0 +1,64 @@
+_Config_ptos:
+  begin   (midx: 0)
+//Proyecto4.c,17 :: 		void Config_ptos(void){
+_Config_ptos:
+  begin   (midx: 0)
+//Proyecto4.c,18 :: 		GPIO_Digital_Output(&GPIOA_BASE,_GPIO_PINMASK_ALL);
+	R1 <4> <- 65535   (midx: 0)
+	R0 <4> <- #GPIOA_BASE   (midx: 0)
+	CALL _GPIO_Digital_Output   (midx: 0)
+//Proyecto4.c,19 :: 		SALIDAS = 0xfff;
+	R1 <4> <- 4095   (midx: 0)
+	R0 <4> <- addr(GPIOA_ODR)   (midx: 0)
+	[R0] <4> <- R1   (midx: 0)
+//Proyecto4.c,20 :: 		GPIO_Analog_input(&GPIOC_BASE,_GPIO_PINMASK_0); //PC0 = Canal 10 del ADC1
+	R1 <4> <- 1   (midx: 0)
+	R0 <4> <- #GPIOC_BASE   (midx: 0)
+	CALL _GPIO_Analog_Input   (midx: 0)
+  end
+   (midx: 0)
+_Config_adc:
+  begin   (midx: 0)
+//Proyecto4.c,22 :: 		void Config_adc(void){
+_Config_adc:
+  begin   (midx: 0)
+//Proyecto4.c,23 :: 		ADC_Set_Input_Channel(_ADC_CHANNEL_10); // Señeciona el canal 10 como entrada de
+	R0 <2> <- 1024   (midx: 0)
+	CALL _ADC_Set_Input_Channel   (midx: 0)
+//Proyecto4.c,24 :: 		ADC1_Init();
+	CALL _ADC1_Init   (midx: 0)
+  end
+   (midx: 0)
+_Proceso:
+  begin   (midx: 0)
+//Proyecto4.c,27 :: 		void Proceso(void){
+_Proceso:
+  begin   (midx: 0)
+//Proyecto4.c,28 :: 		adc_value = ADC1_Get_Sample(10);//valores para lectura directa en leds con anodo común
+	R0 <2> <- 10   (midx: 0)
+	CALL _ADC1_Get_Sample   (midx: 0)
+	R1 <4> <- addr(_adc_value)   (midx: 0)
+	[R1] <2> <- R0   (midx: 0)
+//Proyecto4.c,29 :: 		SALIDAS=~ADC_Value;  // el resultado aparecera de PA0 a PA11 (12 bits del ADC)
+	R1 <2> <- ~R0   (midx: 1)
+	R0 <4> <- addr(GPIOA_ODR)   (midx: 0)
+	[R0] <4> <- R1   (midx: 0)
+  end
+   (midx: 0)
+_main:
+  begin   (midx: 0)
+//Proyecto4.c,9 :: 		void main(){
+_main:
+  begin   (midx: 0)
+//Proyecto4.c,10 :: 		Config_ptos();
+	CALL _Config_ptos   (midx: 0)
+//Proyecto4.c,11 :: 		Config_adc();
+	CALL _Config_adc   (midx: 0)
+//Proyecto4.c,12 :: 		while(1){
+0:   (midx: 0)
+//Proyecto4.c,13 :: 		Proceso();
+	CALL _Proceso   (midx: 0)
+//Proyecto4.c,14 :: 		}
+	goto	0   (midx: 0)
+  end
+   (midx: 0)

@@ -1,0 +1,150 @@
+_Move_Delay:
+  begin   (midx: 0)
+//lcd_pru.c,20 :: 		void Move_Delay() {                  // Function donde movera texto
+_Move_Delay:
+  begin   (midx: 0)
+//lcd_pru.c,21 :: 		Delay_ms(750);                     // cargara a la velocidad que se movera el texto
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 2)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 5)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+  end
+   (midx: 0)
+_main:
+  begin   (midx: 0)
+//lcd_pru.c,24 :: 		void main(){
+_main:
+  begin   (midx: 0)
+//lcd_pru.c,26 :: 		Lcd_Init();                        // Inicializa LCD
+	CALL _Lcd_Init   (midx: 0)
+//lcd_pru.c,28 :: 		Lcd_Cmd(_LCD_CLEAR);               // limpiar display
+	R0 <1> <- 1   (midx: 0)
+	CALL _Lcd_Cmd   (midx: 0)
+//lcd_pru.c,29 :: 		Lcd_Cmd(_LCD_CURSOR_OFF);          // Cursor apagado
+	R0 <1> <- 12   (midx: 0)
+	CALL _Lcd_Cmd   (midx: 0)
+//lcd_pru.c,30 :: 		Lcd_Out(1,6,txt3);                 // Escribe texto en la primera linea
+	R2 <4> <- #_txt3   (midx: 0)
+	R1 <1> <- 6   (midx: 0)
+	R0 <1> <- 1   (midx: 0)
+	CALL _Lcd_Out   (midx: 0)
+//lcd_pru.c,32 :: 		Lcd_Out(2,6,txt4);                 // Escribe el texto en segundos row
+	R2 <4> <- #_txt4   (midx: 0)
+	R1 <1> <- 6   (midx: 0)
+	R0 <1> <- 2   (midx: 0)
+	CALL _Lcd_Out   (midx: 0)
+//lcd_pru.c,33 :: 		Delay_ms(2000);
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 2)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 5)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+//lcd_pru.c,34 :: 		Lcd_Cmd(_LCD_CLEAR);               // limpiar display
+	R0 <1> <- 1   (midx: 0)
+	CALL _Lcd_Cmd   (midx: 0)
+//lcd_pru.c,36 :: 		Lcd_Out(1,1,txt1);                 // Write text in first row
+	R2 <4> <- #_txt1   (midx: 0)
+	R1 <1> <- 1   (midx: 0)
+	R0 <1> <- 1   (midx: 0)
+	CALL _Lcd_Out   (midx: 0)
+//lcd_pru.c,37 :: 		Lcd_Out(2,4,txt2);                 // Write text in second row
+	R2 <4> <- #_txt2   (midx: 0)
+	R1 <1> <- 4   (midx: 0)
+	R0 <1> <- 2   (midx: 0)
+	CALL _Lcd_Out   (midx: 0)
+//lcd_pru.c,39 :: 		Delay_ms(2000);
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 2)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 5)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+//lcd_pru.c,42 :: 		for(i=0; i<4; i++) {               // Movimiento del texto a la derecha en 4 tiempos
+	R1 <1> <- 0   (midx: 0)
+	R0 <4> <- addr(_i)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+3:   (midx: 0)
+	R0 <4> <- addr(_i)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	if ( R0 >= 4) then goto 4   (midx: 0)
+//lcd_pru.c,43 :: 		Lcd_Cmd(_LCD_SHIFT_RIGHT);
+	R0 <1> <- 28   (midx: 0)
+	CALL _Lcd_Cmd   (midx: 0)
+//lcd_pru.c,44 :: 		Move_Delay();
+	CALL _Move_Delay   (midx: 0)
+//lcd_pru.c,42 :: 		for(i=0; i<4; i++) {               // Movimiento del texto a la derecha en 4 tiempos
+	R1 <4> <- addr(_i)   (midx: 0)
+	R0 <1> <- [R1]   (midx: 0)
+	R0 <1> <-  R0 + 1   (midx: 0)
+	[R1] <1> <- R0   (midx: 0)
+//lcd_pru.c,45 :: 		}
+	goto	3   (midx: 0)
+4:   (midx: 0)
+//lcd_pru.c,47 :: 		while(1) {                         // usara la variable inicializada ene l bucle
+6:   (midx: 0)
+//lcd_pru.c,48 :: 		for(i=0; i<7; i++) {             // Moviento del texto  en 7 tiempos
+	R1 <1> <- 0   (midx: 0)
+	R0 <4> <- addr(_i)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+8:   (midx: 0)
+	R0 <4> <- addr(_i)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	if ( R0 >= 7) then goto 9   (midx: 0)
+//lcd_pru.c,49 :: 		Lcd_Cmd(_LCD_SHIFT_LEFT);
+	R0 <1> <- 24   (midx: 0)
+	CALL _Lcd_Cmd   (midx: 0)
+//lcd_pru.c,50 :: 		Move_Delay();
+	CALL _Move_Delay   (midx: 0)
+//lcd_pru.c,48 :: 		for(i=0; i<7; i++) {             // Moviento del texto  en 7 tiempos
+	R1 <4> <- addr(_i)   (midx: 0)
+	R0 <1> <- [R1]   (midx: 0)
+	R0 <1> <-  R0 + 1   (midx: 0)
+	[R1] <1> <- R0   (midx: 0)
+//lcd_pru.c,51 :: 		}
+	goto	8   (midx: 0)
+9:   (midx: 0)
+//lcd_pru.c,53 :: 		for(i=0; i<7; i++) {             // Movimiento del texto a la derecha en 7 tiempos
+	R1 <1> <- 0   (midx: 0)
+	R0 <4> <- addr(_i)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+11:   (midx: 0)
+	R0 <4> <- addr(_i)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	if ( R0 >= 7) then goto 12   (midx: 0)
+//lcd_pru.c,54 :: 		Lcd_Cmd(_LCD_SHIFT_RIGHT);
+	R0 <1> <- 28   (midx: 0)
+	CALL _Lcd_Cmd   (midx: 0)
+//lcd_pru.c,55 :: 		Move_Delay();
+	CALL _Move_Delay   (midx: 0)
+//lcd_pru.c,53 :: 		for(i=0; i<7; i++) {             // Movimiento del texto a la derecha en 7 tiempos
+	R1 <4> <- addr(_i)   (midx: 0)
+	R0 <1> <- [R1]   (midx: 0)
+	R0 <1> <-  R0 + 1   (midx: 0)
+	[R1] <1> <- R0   (midx: 0)
+//lcd_pru.c,56 :: 		}
+	goto	11   (midx: 0)
+12:   (midx: 0)
+//lcd_pru.c,57 :: 		}
+	goto	6   (midx: 0)
+  end
+   (midx: 0)

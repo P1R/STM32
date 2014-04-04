@@ -1,0 +1,95 @@
+_config_ptos:
+  begin   (midx: 0)
+//Practica3.c,21 :: 		void config_ptos(void){
+_config_ptos:
+  begin   (midx: 0)
+//Practica3.c,22 :: 		GPIO_Digital_Input(&GPIOA_BASE,_GPIO_PINMASK_0|_GPIO_PINMASK_1);
+	R1 <4> <- 3   (midx: 0)
+	R0 <4> <- #GPIOA_BASE   (midx: 0)
+	CALL _GPIO_Digital_Input   (midx: 0)
+//Practica3.c,23 :: 		GPIO_Digital_Output(&GPIOC_BASE,_GPIO_PINMASK_8|_GPIO_PINMASK_9);
+	R1 <4> <- 768   (midx: 0)
+	R0 <4> <- #GPIOC_BASE   (midx: 0)
+	CALL _GPIO_Digital_Output   (midx: 0)
+  end
+   (midx: 0)
+_Init:
+  begin   (midx: 0)
+//Practica3.c,26 :: 		void Init(){
+_Init:
+  begin   (midx: 0)
+//Practica3.c,27 :: 		Motor = 1;
+	R1 <1> <- 1   (midx: 0)
+	R0 <4> <- addr(Motor)   (midx: 0)
+	[R0] <0> <- R1   (midx: 0)
+//Practica3.c,28 :: 		state = 0;
+	R1 <2> <- 0   (midx: 0)
+	R0 <4> <- addr(_state)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+  end
+   (midx: 0)
+_main:
+  begin   (midx: 0)
+//Practica3.c,8 :: 		void main() {
+_main:
+  begin   (midx: 0)
+//Practica3.c,9 :: 		config_ptos();
+	CALL _config_ptos   (midx: 0)
+//Practica3.c,10 :: 		Init();
+	CALL _Init   (midx: 0)
+//Practica3.c,11 :: 		while(1){
+0:   (midx: 0)
+//Practica3.c,12 :: 		if(state==0 && GPIOA_IDR.B0==1 && GPIOA_IDR.B1==1){
+	R0 <4> <- addr(_state)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	if ( R0 != 0) then goto 12   (midx: 5)
+	R1 <4> <- addr(GPIOA_IDR)   (midx: 0)
+	R0 <4> <- [R1]   (midx: 0)
+	if (!R0) then goto 11   (midx: 21)
+	R1 <4> <- addr(GPIOA_IDR)   (midx: 0)
+	R0 <4> <- [R1]   (midx: 0)
+	if (!R0) then goto 10   (midx: 21)
+9:   (midx: 0)
+//Practica3.c,13 :: 		Motor=0;
+	R1 <1> <- 0   (midx: 0)
+	R0 <4> <- addr(Motor)   (midx: 0)
+	[R0] <0> <- R1   (midx: 0)
+//Practica3.c,14 :: 		state=1;
+	R1 <2> <- 1   (midx: 0)
+	R0 <4> <- addr(_state)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//Practica3.c,15 :: 		}
+	goto	5   (midx: 0)
+//Practica3.c,12 :: 		if(state==0 && GPIOA_IDR.B0==1 && GPIOA_IDR.B1==1){
+12:   (midx: 0)
+11:   (midx: 0)
+10:   (midx: 0)
+//Practica3.c,16 :: 		else if(state=1 && GPIOA_IDR.B0==0)
+	R1 <4> <- addr(GPIOA_IDR)   (midx: 0)
+	R0 <1> <- [R1]   (midx: 0)
+	if ( R0 != 0) then goto 7   (midx: 0)
+	R1 <1> <- 1   (midx: 0)
+	goto	6   (midx: 0)
+7:   (midx: 0)
+	R1 <1> <- 0   (midx: 0)
+6:   (midx: 0)
+tmi: LogicalEnd   (midx: 0)
+	R0 <4> <- addr(_state)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+	R0 <4> <- R0   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	if (!R0) then goto 8   (midx: 0)
+//Practica3.c,17 :: 		Motor=1;
+	R1 <1> <- 1   (midx: 0)
+	R0 <4> <- addr(Motor)   (midx: 0)
+	[R0] <0> <- R1   (midx: 0)
+8:   (midx: 0)
+5:   (midx: 0)
+//Practica3.c,18 :: 		state=0;
+	R1 <2> <- 0   (midx: 0)
+	R0 <4> <- addr(_state)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//Practica3.c,19 :: 		}
+	goto	0   (midx: 0)
+  end
+   (midx: 0)

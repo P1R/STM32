@@ -1,0 +1,17 @@
+main
+	Config_ptos
+		GPIO_Digital_Output
+			GPIO_Config
+				GPIO_Clk_Enable
+		GPIO_Analog_Input
+			GPIO_Config
+	Config_adc
+		ADC_Set_Input_Channel
+			GPIO_Analog_Input
+		ADC1_Init
+			ADCx_Init
+	Proceso
+		ADC1_Get_Sample
+			ADCx_Get_Sample
+				Delay_1us
+	__FillZeros

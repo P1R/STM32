@@ -1,0 +1,9 @@
+main
+	Config_ptos
+		GPIO_Digital_Input
+			GPIO_Config
+				GPIO_Clk_Enable
+		GPIO_Digital_Output
+			GPIO_Config
+	delay
+	__FillZeros
