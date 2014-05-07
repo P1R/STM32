@@ -25,14 +25,25 @@ class Window(QtGui.QDialog):
         # Just some button connected to `plot` method
         self.button = QtGui.QPushButton('Plot')
         self.button.clicked.connect(self.plot)
-
+       #agregamos boton para dato 1
+        self.button1 = QtGui.QPushButton('Foco')
+        self.button1.clicked.connect(self.Foco)
+       #agregamos boton para dato 2 
+        self.button2 = QtGui.QPushButton('Ventilador')
+        self.button2.clicked.connect(self.Ventilador)
+ 
         # set the layout
         layout = QtGui.QVBoxLayout()
         layout.addWidget(self.toolbar)
         layout.addWidget(self.canvas)
         layout.addWidget(self.button)
+        layout.addWidget(self.button1)
+        layout.addWidget(self.button2)
         self.setLayout(layout)
-
+    def Foco(self):
+        print 1
+    def Ventilador(self):
+        print 2
     def plot(self):
         ''' plot some random stuff '''
         # random data
