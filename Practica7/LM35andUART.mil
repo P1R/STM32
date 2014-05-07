@@ -1,0 +1,269 @@
+_Config_ptos:
+  begin   (midx: 0)
+//LM35andUART.c,41 :: 		void Config_ptos(void){
+_Config_ptos:
+  begin   (midx: 0)
+//LM35andUART.c,42 :: 		GPIO_Digital_Output(&GPIOB_BASE,_GPIO_PINMASK_10|_GPIO_PINMASK_11|_GPIO_PINMASK_12);
+	R1 <4> <- 7168   (midx: 0)
+	R0 <4> <- #GPIOB_BASE   (midx: 0)
+	CALL _GPIO_Digital_Output   (midx: 0)
+//LM35andUART.c,43 :: 		GPIO_Digital_Output(&GPIOB_BASE,_GPIO_PINMASK_13|_GPIO_PINMASK_14|_GPIO_PINMASK_15);
+	R1 <4> <- 57344   (midx: 0)
+	R0 <4> <- #GPIOB_BASE   (midx: 0)
+	CALL _GPIO_Digital_Output   (midx: 0)
+//LM35andUART.c,44 :: 		GPIO_Digital_Output(&GPIOC_BASE,_GPIO_PINMASK_9|_GPIO_PINMASK_8);
+	R1 <4> <- 768   (midx: 0)
+	R0 <4> <- #GPIOC_BASE   (midx: 0)
+	CALL _GPIO_Digital_Output   (midx: 0)
+//LM35andUART.c,45 :: 		GPIO_Analog_input(&GPIOC_BASE,_GPIO_PINMASK_0);
+	R1 <4> <- 1   (midx: 0)
+	R0 <4> <- #GPIOC_BASE   (midx: 0)
+	CALL _GPIO_Analog_Input   (midx: 0)
+//LM35andUART.c,46 :: 		VENTILADOR = 0;
+	R1 <1> <- 0   (midx: 0)
+	R0 <4> <- addr(VENTILADOR)   (midx: 0)
+	[R0] <0> <- R1   (midx: 0)
+//LM35andUART.c,47 :: 		LAMPARA = 0;
+	R0 <4> <- addr(LAMPARA)   (midx: 0)
+	[R0] <0> <- R1   (midx: 0)
+  end
+   (midx: 0)
+_Config_adc:
+  begin   (midx: 0)
+//LM35andUART.c,49 :: 		void Config_adc(void){
+_Config_adc:
+  begin   (midx: 0)
+//LM35andUART.c,50 :: 		ADC_Set_Input_Channel(_ADC_CHANNEL_10);
+	R0 <2> <- 1024   (midx: 0)
+	CALL _ADC_Set_Input_Channel   (midx: 0)
+//LM35andUART.c,51 :: 		ADC1_Init();
+	CALL _ADC1_Init   (midx: 0)
+  end
+   (midx: 0)
+_Config_UART1:
+  begin   (midx: 0)
+//LM35andUART.c,53 :: 		void Config_UART1(void){
+_Config_UART1:
+  begin   (midx: 0)
+//LM35andUART.c,54 :: 		UART1_Init(9600);
+	R0 <4> <- 9600   (midx: 0)
+	CALL _UART1_Init   (midx: 0)
+//LM35andUART.c,55 :: 		Delay_ms(100);
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 2)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 5)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+//LM35andUART.c,56 :: 		UART1_Write_Text("Inicio");
+	R0 <4> <- #?lstr2_LM35andUART   (midx: 0)
+	R0 <4> <- R0   (midx: 0)
+	CALL _UART1_Write_Text   (midx: 0)
+//LM35andUART.c,57 :: 		UART1_Write(13);
+	R0 <2> <- 13   (midx: 0)
+	CALL _UART1_Write   (midx: 0)
+//LM35andUART.c,58 :: 		UART1_Write(10);
+	R0 <2> <- 10   (midx: 0)
+	CALL _UART1_Write   (midx: 0)
+//LM35andUART.c,59 :: 		Lcd_Out(1, 1, "Inicia UART1");
+	R0 <4> <- #?lstr3_LM35andUART   (midx: 0)
+	R2 <4> <- R0   (midx: 0)
+	R1 <1> <- 1   (midx: 0)
+	R0 <1> <- 1   (midx: 0)
+	CALL _Lcd_Out   (midx: 0)
+//LM35andUART.c,60 :: 		delay_ms(2000);
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 2)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 5)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+  end
+   (midx: 0)
+_delay:
+  begin   (midx: 0)
+//LM35andUART.c,101 :: 		void delay(unsigned long contador)
+_delay:
+  begin   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R0 <4> <- R0   (midx: 0)
+   (midx: 0)
+	R0 <4> <- R0   (midx: 0)
+   (midx: 0)
+//LM35andUART.c,103 :: 		while(--contador);
+9:   (midx: 0)
+   (midx: 0)
+	R1 <4> <-  R0 - 1   (midx: 2)
+   (midx: 0)
+	R0 <4> <- R1   (midx: 0)
+   (midx: 0)
+	if (!R1) then goto 10   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R0 <4> <- R0   (midx: 0)
+	goto	9   (midx: 0)
+10:   (midx: 0)
+  end
+   (midx: 0)
+_Proceso:
+  begin   (midx: 0)
+//LM35andUART.c,64 :: 		void Proceso(void){
+_Proceso:
+  begin   (midx: 0)
+//LM35andUART.c,72 :: 		adc_value = ADC1_Get_Sample(10);
+	R0 <2> <- 10   (midx: 0)
+	CALL _ADC1_Get_Sample   (midx: 0)
+	R1 <4> <- addr(_adc_value)   (midx: 0)
+	[R1] <2> <- R0   (midx: 0)
+//LM35andUART.c,73 :: 		grados = adc_value/cuentas;
+	R0 <4> <- (type cast)R0   (midx: 0)
+	R2 <4> <- 5.460000E+001   (midx: 0)
+	R0 <4> <-  R0 / R2   (midx: 8)
+//LM35andUART.c,74 :: 		FloatToStr(grados,centigrados);
+	R1 <4> <- addr(Proceso_centigrados_L0)   (midx: 0)
+	R1 <4> <- R1   (midx: 0)
+	R0 <4> <- R0   (midx: 0)
+	CALL _FloatToStr   (midx: 0)
+//LM35andUART.c,75 :: 		UART1_Write_Text(centigrados);
+	R0 <4> <- addr(Proceso_centigrados_L0)   (midx: 0)
+	R0 <4> <- R0   (midx: 0)
+	CALL _UART1_Write_Text   (midx: 0)
+//LM35andUART.c,76 :: 		UART1_Write(13);
+	R0 <2> <- 13   (midx: 0)
+	CALL _UART1_Write   (midx: 0)
+//LM35andUART.c,77 :: 		UART1_Write(10);
+	R0 <2> <- 10   (midx: 0)
+	CALL _UART1_Write   (midx: 0)
+//LM35andUART.c,78 :: 		Lcd_Out(1, 1, centigrados);
+	R0 <4> <- addr(Proceso_centigrados_L0)   (midx: 0)
+	R2 <4> <- R0   (midx: 0)
+	R1 <1> <- 1   (midx: 0)
+	R0 <1> <- 1   (midx: 0)
+	CALL _Lcd_Out   (midx: 0)
+//LM35andUART.c,79 :: 		Lcd_Out(1, 8, "\xDFc");
+	R0 <4> <- #?lstr4_LM35andUART   (midx: 0)
+	R2 <4> <- R0   (midx: 0)
+	R1 <1> <- 8   (midx: 0)
+	R0 <1> <- 1   (midx: 0)
+	CALL _Lcd_Out   (midx: 0)
+//LM35andUART.c,81 :: 		volts = adc_value;
+	R0 <4> <- addr(_adc_value)   (midx: 0)
+	R0 <4> <- (type cast)[R0]   (midx: 0)
+//LM35andUART.c,82 :: 		FloatToStr(volts,val);
+	R1 <4> <- addr(Proceso_val_L0)   (midx: 0)
+	R1 <4> <- R1   (midx: 0)
+	R0 <4> <- R0   (midx: 0)
+	CALL _FloatToStr   (midx: 0)
+//LM35andUART.c,83 :: 		Lcd_Out(2, 15, "V");
+	R0 <4> <- #?lstr5_LM35andUART   (midx: 0)
+	R2 <4> <- R0   (midx: 0)
+	R1 <1> <- 15   (midx: 0)
+	R0 <1> <- 2   (midx: 0)
+	CALL _Lcd_Out   (midx: 0)
+//LM35andUART.c,84 :: 		Lcd_Out(2, 1, val);
+	R0 <4> <- addr(Proceso_val_L0)   (midx: 0)
+	R2 <4> <- R0   (midx: 0)
+	R1 <1> <- 1   (midx: 0)
+	R0 <1> <- 2   (midx: 0)
+	CALL _Lcd_Out   (midx: 0)
+//LM35andUART.c,85 :: 		delay(0xFFFFF);
+	R0 <4> <- 1048575   (midx: 0)
+	CALL _delay   (midx: 0)
+//LM35andUART.c,86 :: 		Lcd_Cmd(_LCD_CLEAR);
+	R0 <1> <- 1   (midx: 0)
+	CALL _Lcd_Cmd   (midx: 0)
+//LM35andUART.c,88 :: 		if (UART1_Data_Ready()) {     // If data is received
+	CALL _UART1_Data_Ready   (midx: 0)
+	if (!R0) then goto 5   (midx: 0)
+//LM35andUART.c,89 :: 		uart_rd = UART1_Read();     // read the received data
+	CALL _UART1_Read   (midx: 0)
+	R1 <4> <- addr(_uart_rd)   (midx: 0)
+	[R1] <1> <- R0   (midx: 0)
+//LM35andUART.c,90 :: 		if (uart_rd == '1'){
+	R0 <1> <- R0   (midx: 0)
+	if ( R0 != 49) then goto 6   (midx: 0)
+//LM35andUART.c,91 :: 		LAMPARA = ~LAMPARA;
+	R1 <4> <- addr(LAMPARA)   (midx: 0)
+	R0 <4> <- [R1]   (midx: 0)
+	R0 <1> <- ~R0   (midx: 20)
+	[R1] <0> <- R0   (midx: 0)
+//LM35andUART.c,92 :: 		}
+	goto	7   (midx: 0)
+6:   (midx: 0)
+//LM35andUART.c,93 :: 		else if (uart_rd == '2')
+	R0 <4> <- addr(_uart_rd)   (midx: 0)
+	R0 <1> <- [R0]   (midx: 0)
+	if ( R0 != 50) then goto 8   (midx: 0)
+//LM35andUART.c,95 :: 		VENTILADOR = ~VENTILADOR;
+	R1 <4> <- addr(VENTILADOR)   (midx: 0)
+	R0 <4> <- [R1]   (midx: 0)
+	R0 <1> <- ~R0   (midx: 20)
+	[R1] <0> <- R0   (midx: 0)
+//LM35andUART.c,96 :: 		}
+8:   (midx: 0)
+7:   (midx: 0)
+//LM35andUART.c,97 :: 		}
+5:   (midx: 0)
+  end
+   (midx: 0)
+_main:
+  begin   (midx: 0)
+//LM35andUART.c,26 :: 		void main() {
+_main:
+  begin   (midx: 0)
+//LM35andUART.c,27 :: 		Lcd_Init();
+	CALL _Lcd_Init   (midx: 0)
+//LM35andUART.c,28 :: 		Config_ptos();
+	CALL _Config_ptos   (midx: 0)
+//LM35andUART.c,29 :: 		Config_adc();
+	CALL _Config_adc   (midx: 0)
+//LM35andUART.c,30 :: 		Config_UART1();
+	CALL _Config_UART1   (midx: 0)
+//LM35andUART.c,31 :: 		Lcd_Cmd(_LCD_CLEAR);
+	R0 <1> <- 1   (midx: 0)
+	CALL _Lcd_Cmd   (midx: 0)
+//LM35andUART.c,32 :: 		Lcd_Out(1, 1, "9CM11-Termometro");
+	R0 <4> <- #?lstr1_LM35andUART   (midx: 0)
+	R2 <4> <- R0   (midx: 0)
+	R1 <1> <- 1   (midx: 0)
+	R0 <1> <- 1   (midx: 0)
+	CALL _Lcd_Out   (midx: 0)
+//LM35andUART.c,33 :: 		delay_ms(2000);
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 2)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 5)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+//LM35andUART.c,34 :: 		Lcd_Cmd(_LCD_CLEAR);
+	R0 <1> <- 1   (midx: 0)
+	CALL _Lcd_Cmd   (midx: 0)
+//LM35andUART.c,35 :: 		Lcd_Cmd(_LCD_CURSOR_OFF);
+	R0 <1> <- 12   (midx: 0)
+	CALL _Lcd_Cmd   (midx: 0)
+//LM35andUART.c,36 :: 		while(1){
+1:   (midx: 0)
+//LM35andUART.c,37 :: 		Proceso();
+	CALL _Proceso   (midx: 0)
+//LM35andUART.c,38 :: 		}
+	goto	1   (midx: 0)
+  end
+   (midx: 0)

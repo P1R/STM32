@@ -1,0 +1,14 @@
+0	1	mikroCARM.exe -MSF -DBG -pSTM32F100RB -LHF -DL -SSA -O11111114 -fo8 -N"E:\STM32-master\LM35andUART\LM35andUART.mcpar" -SP"C:\mikroC PRO for ARM\defs\" -SP"E:\STM32-master\LM35andUART\" -SP"C:\Users\JorgeAlejandro\Documents\Sistemas de tiempo real\STM32-master\LM35andUART\" -SP"C:\mikroC PRO for ARM\Uses\ST M3\" "LM35andUART.c" "__Lib_Math.emcl" "__Lib_MathDouble.emcl" "__Lib_Delays.emcl" "__Lib_System_100.emcl" "__Lib_GPIO_32F10x.emcl" "__Lib_CString.emcl" "__Lib_CMath.emcl" "__Lib_Conversions.emcl" "__Lib_ADC_32F10x_16ch.emcl" "__Lib_UART_123.emcl" "__Lib_LcdConsts.emcl" "__Lib_Lcd.emcl"	 
+warning: 0	1501	Specified search path does not exist: 'C:\Users\JorgeAlejandro\Documents\Sistemas de tiempo real\STM32-master\LM35andUART'	 
+diagnostics: 0	122	Compilation Started	LM35andUART.c
+diagnostics: 104	123	Compiled Successfully	LM35andUART.c
+hint: 68	1164	Variable 'volts' has been eliminated by optimizer	LM35andUART.c
+hint: 69	1164	Variable 'grados' has been eliminated by optimizer	LM35andUART.c
+diagnostics: 0	127	All files Compiled in 499 ms	 
+hint: 0	1144	Used RX: 16 (100%)   Free RX: 0 (0%)	Used RX: 16 (100%)   Free RX: 0 (0%)
+hint: 0	1144	Static RAM (bytes): 80   Dynamic RAM (bytes): 8109	Static RAM (bytes): 80   Dynamic RAM (bytes): 8109
+hint: 0	1144	Used ROM (bytes): 6336 (5%)  Free ROM (bytes): 124736 (95%)	Used ROM (bytes): 6336 (5%)  Free ROM (bytes): 124736 (95%)
+diagnostics: 0	125	Project Linked Successfully	LM35andUART.mcpar
+diagnostics: 0	128	Linked in 1466 ms	 
+diagnostics: 0	129	Project 'LM35andUART.mcpar' completed: 2168 ms	 
+diagnostics: 0	103	Finished successfully: 07 may 2014, 04:48:58	LM35andUART.mcpar
