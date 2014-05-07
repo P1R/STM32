@@ -10,7 +10,7 @@ import numpy as np
 import sys, serial
 from pylab import pause
 ser = serial.Serial('/dev/ttyUSB0', 9600, timeout=1)#timeout=0, rtscts=1)
-
+archivo = open("datos.txt", "w")
 from random import randrange
 
 class Window(QtGui.QDialog):
@@ -30,12 +30,15 @@ class Window(QtGui.QDialog):
 
         # Just some button connected to `plot` method
         self.button = QtGui.QPushButton('Plot')
+        self.button.setCheckable(True)
         self.button.clicked.connect(self.plot)
        #agregamos boton para dato 1
         self.button1 = QtGui.QPushButton('Foco')
+        self.button1.setCheckable(True)
         self.button1.clicked.connect(self.Foco)
        #agregamos boton para dato 2 
         self.button2 = QtGui.QPushButton('Ventilador')
+        self.button2.setCheckable(True)
         self.button2.clicked.connect(self.Ventilador)
  
         # set the layout
@@ -80,6 +83,7 @@ class Window(QtGui.QDialog):
         while True:
             line = ser.readline()
             val = float(line)
+            archivo.write(str(val)+'\n')
             yield val
             time.sleep(0.1)
 
