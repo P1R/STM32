@@ -1,0 +1,53 @@
+_main:
+  begin   (midx: 0)
+//UART.c,4 :: 		void main() {
+_main:
+  begin   (midx: 0)
+//UART.c,5 :: 		UART1_Init(9600);              // Initialize UART module at 56000 bps
+	R0 <4> <- 9600   (midx: 0)
+	CALL _UART1_Init   (midx: 0)
+//UART.c,6 :: 		Delay_ms(100);                  // Wait for UART module to stabilize
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 2)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 5)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+//UART.c,8 :: 		UART1_Write_Text("Start");
+	R0 <4> <- #?lstr1_UART   (midx: 0)
+	R0 <4> <- R0   (midx: 0)
+	CALL _UART1_Write_Text   (midx: 0)
+//UART.c,9 :: 		UART1_Write(13);
+	R0 <2> <- 13   (midx: 0)
+	CALL _UART1_Write   (midx: 0)
+//UART.c,10 :: 		UART1_Write(10);
+	R0 <2> <- 10   (midx: 0)
+	CALL _UART1_Write   (midx: 0)
+//UART.c,12 :: 		while (1) {
+1:   (midx: 0)
+//UART.c,13 :: 		if (UART1_Data_Ready() == 1) {          // if data is received
+	CALL _UART1_Data_Ready   (midx: 0)
+	if ( R0 != 1) then goto 3   (midx: 1)
+//UART.c,14 :: 		UART1_Read_Text(uart_rd, "OK", 10);    // reads text until 'OK' is found
+	R1 <4> <- #?lstr2_UART   (midx: 0)
+	R0 <4> <- addr(_uart_rd)   (midx: 0)
+	R0 <4> <- [R0]   (midx: 0)
+	R2 <1> <- 10   (midx: 0)
+	R1 <4> <- R1   (midx: 0)
+	R0 <4> <- R0   (midx: 0)
+	CALL _UART1_Read_Text   (midx: 0)
+//UART.c,15 :: 		UART1_Write_Text(uart_rd);             // sends back text
+	R0 <4> <- addr(_uart_rd)   (midx: 0)
+	R0 <4> <- [R0]   (midx: 0)
+	R0 <4> <- R0   (midx: 0)
+	CALL _UART1_Write_Text   (midx: 0)
+//UART.c,16 :: 		}
+3:   (midx: 0)
+//UART.c,17 :: 		}
+	goto	1   (midx: 0)
+  end
+   (midx: 0)

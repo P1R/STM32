@@ -1,0 +1,109 @@
+_Conf_puertos:
+  begin   (midx: 0)
+//ServoMotores.c,5 :: 		void Conf_puertos(void)
+_Conf_puertos:
+  begin   (midx: 0)
+//ServoMotores.c,7 :: 		GPIO_Digital_Input(&GPIOA_BASE,_GPIO_PINMASK_0);
+	R1 <4> <- 1   (midx: 0)
+	R0 <4> <- #GPIOA_BASE   (midx: 0)
+	CALL _GPIO_Digital_Input   (midx: 0)
+//ServoMotores.c,8 :: 		GPIO_Digital_Output(&GPIOC_BASE,_GPIO_PINMASK_8);
+	R1 <4> <- 256   (midx: 0)
+	R0 <4> <- #GPIOC_BASE   (midx: 0)
+	CALL _GPIO_Digital_Output   (midx: 0)
+  end
+   (midx: 0)
+_main:
+  begin   (midx: 0)
+//ServoMotores.c,11 :: 		void main() {
+_main:
+  begin   (midx: 0)
+//ServoMotores.c,12 :: 		Conf_puertos();
+	CALL _Conf_puertos   (midx: 0)
+//ServoMotores.c,13 :: 		LAMPARA = 1;
+	R1 <1> <- 1   (midx: 0)
+	R0 <4> <- addr(LAMPARA)   (midx: 0)
+	[R0] <0> <- R1   (midx: 0)
+//ServoMotores.c,14 :: 		current_duty =100;                        // initial value for current_duty
+	R1 <2> <- 100   (midx: 0)
+	R0 <4> <- addr(_current_duty)   (midx: 0)
+	FLOC_main+0 <4> <- R0   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//ServoMotores.c,15 :: 		pwm_period1 = PWM_TIM2_Init(50);
+	R0 <4> <- 50   (midx: 0)
+	CALL _PWM_TIM2_Init   (midx: 0)
+	R1 <4> <- addr(_pwm_period1)   (midx: 0)
+	[R1] <2> <- R0   (midx: 0)
+//ServoMotores.c,16 :: 		PWM_TIM2_Set_Duty(current_duty,  _PWM_NON_INVERTED, _PWM_CHANNEL2);
+	R0 <4> <- FLOC_main+0   (midx: 0)
+	R0 <4> <- R0   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R2 <1> <- 1   (midx: 0)
+	R1 <1> <- 0   (midx: 0)
+	R0 <2> <- R0   (midx: 0)
+	CALL _PWM_TIM2_Set_Duty   (midx: 0)
+//ServoMotores.c,17 :: 		PWM_TIM2_Start(_PWM_CHANNEL2, &_GPIO_MODULE_TIM2_CH2_PA1);
+	R1 <4> <- #__GPIO_MODULE_TIM2_CH2_PA1   (midx: 0)
+	R0 <1> <- 1   (midx: 0)
+	CALL _PWM_TIM2_Start   (midx: 0)
+//ServoMotores.c,19 :: 		while (1){
+0:   (midx: 0)
+//ServoMotores.c,20 :: 		if(GPIOA_IDR.B0){
+	R1 <4> <- addr(GPIOA_IDR)   (midx: 0)
+	R0 <4> <- [R1]   (midx: 0)
+	if (!R0) then goto 2   (midx: 0)
+//ServoMotores.c,21 :: 		LAMPARA = ~LAMPARA;
+	R1 <4> <- addr(LAMPARA)   (midx: 0)
+	R0 <4> <- [R1]   (midx: 0)
+	R0 <1> <- ~R0   (midx: 20)
+	[R1] <0> <- R0   (midx: 0)
+//ServoMotores.c,22 :: 		Delay_ms(1);
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 2)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 5)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+//ServoMotores.c,23 :: 		current_duty = current_duty + 50;       // increment current_duty
+	R2 <4> <- addr(_current_duty)   (midx: 0)
+	R0 <2> <- [R2]   (midx: 0)
+	R1 <2> <-  R0 + 50   (midx: 1)
+	[R2] <2> <- R1   (midx: 0)
+//ServoMotores.c,24 :: 		if (current_duty > pwm_period1) {      // if we increase current_duty greater then possible pwm_period1 value
+	R0 <4> <- addr(_pwm_period1)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	if ( R1 <= R0) then goto 4   (midx: 1)
+//ServoMotores.c,25 :: 		current_duty = 1;                    // reset current_duty value to zero
+	R1 <2> <- 1   (midx: 0)
+	R0 <4> <- addr(_current_duty)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//ServoMotores.c,26 :: 		}
+4:   (midx: 0)
+//ServoMotores.c,27 :: 		PWM_TIM2_Set_Duty(current_duty,  _PWM_NON_INVERTED, _PWM_CHANNEL2); /// set newly acquired duty ratio
+	R0 <4> <- addr(_current_duty)   (midx: 0)
+	R0 <2> <- [R0]   (midx: 0)
+	R2 <1> <- 1   (midx: 0)
+	R1 <1> <- 0   (midx: 0)
+	R0 <2> <- R0   (midx: 0)
+	CALL _PWM_TIM2_Set_Duty   (midx: 0)
+//ServoMotores.c,28 :: 		}
+2:   (midx: 0)
+//ServoMotores.c,29 :: 		Delay_ms(1);                             // slow down change pace a little
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 2)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 5)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+//ServoMotores.c,30 :: 		}
+	goto	0   (midx: 0)
+  end
+   (midx: 0)
