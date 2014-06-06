@@ -1,0 +1,149 @@
+_Caden:
+  begin   (midx: 0)
+//FuncionRampa.c,10 :: 		void Caden() iv IVT_INT_TIM3 ics ICS_AUTO {
+_Caden:
+  begin   (midx: 0)
+//FuncionRampa.c,11 :: 		TIM3_SR.UIF = 0;
+	R1 <1> <- 0   (midx: 0)
+	R0 <4> <- addr(TIM3_SR)   (midx: 0)
+	[R0] <0> <- R1   (midx: 20)
+//FuncionRampa.c,12 :: 		dato_actual++;
+	R1 <4> <- addr(_dato_actual)   (midx: 0)
+	R0 <1> <- [R1]   (midx: 0)
+	R0 <1> <-  R0 + 1   (midx: 0)
+	[R1] <1> <- R0   (midx: 0)
+//FuncionRampa.c,14 :: 		if(dato_actual == 16) dato_actual = 0;
+	if ( R0 != 16) then goto 0   (midx: 0)
+	R1 <1> <- 0   (midx: 0)
+	R0 <4> <- addr(_dato_actual)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+0:   (midx: 0)
+//FuncionRampa.c,16 :: 		val = vector[dato_actual];
+	R0 <4> <- addr(_dato_actual)   (midx: 0)
+	R0 <4> <- [R0]   (midx: 0)
+	R1 <4> <-  R0 shl 1   (midx: 2)
+	R0 <4> <- #_vector   (midx: 0)
+	R0 <4> <-  R0 + R1   (midx: 2)
+	R1 <2> <- *R0   (midx: 0)
+	R0 <4> <- addr(_val)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//FuncionRampa.c,17 :: 		DAC_DHR12R1 = val;   //Escribe dato en el buffer del DAC
+	R0 <4> <- addr(DAC_DHR12R1)   (midx: 0)
+	[R0] <4> <- R1   (midx: 0)
+//FuncionRampa.c,18 :: 		DAC_SWTRIGRbits.SWTRIG1 = 1;    //Dispara el proceso de conversión
+	R1 <1> <- 1   (midx: 0)
+	R0 <4> <- addr(DAC_SWTRIGRbits+0)   (midx: 0)
+	[R0] <0> <- R1   (midx: 20)
+  end
+   (midx: 0)
+_main:
+  begin   (midx: 0)
+//FuncionRampa.c,21 :: 		void main() {
+_main:
+  begin   (midx: 0)
+//FuncionRampa.c,22 :: 		dato_actual = 0;
+	R1 <1> <- 0   (midx: 0)
+	R0 <4> <- addr(_dato_actual)   (midx: 0)
+	[R0] <1> <- R1   (midx: 0)
+//FuncionRampa.c,24 :: 		RCC_APB1ENR.TIM3EN = 1;
+	R1 <1> <- 1   (midx: 0)
+	R0 <4> <- addr(RCC_APB1ENR)   (midx: 0)
+	[R0] <0> <- R1   (midx: 20)
+//FuncionRampa.c,25 :: 		TIM3_CR1.CEN = 0;
+	R1 <1> <- 0   (midx: 0)
+	R0 <4> <- addr(TIM3_CR1)   (midx: 0)
+	[R0] <0> <- R1   (midx: 20)
+//FuncionRampa.c,26 :: 		TIM3_PSC = 7;
+	R1 <4> <- 7   (midx: 0)
+	R0 <4> <- addr(TIM3_PSC)   (midx: 0)
+	[R0] <4> <- R1   (midx: 0)
+//FuncionRampa.c,27 :: 		TIM3_ARR = 142;
+	R1 <4> <- 142   (midx: 0)
+	R0 <4> <- addr(TIM3_ARR)   (midx: 0)
+	[R0] <4> <- R1   (midx: 0)
+//FuncionRampa.c,28 :: 		NVIC_IntEnable(IVT_INT_TIM3);
+	R0 <4> <- 45   (midx: 0)
+	CALL _NVIC_IntEnable   (midx: 0)
+//FuncionRampa.c,29 :: 		TIM3_DIER.UIE = 1;
+	R1 <1> <- 1   (midx: 0)
+	R0 <4> <- addr(TIM3_DIER)   (midx: 0)
+	[R0] <0> <- R1   (midx: 20)
+//FuncionRampa.c,30 :: 		TIM3_CR1.CEN = 1;
+	R0 <4> <- addr(TIM3_CR1)   (midx: 0)
+	[R0] <0> <- R1   (midx: 20)
+//FuncionRampa.c,32 :: 		GPIO_Analog_Input(&GPIOA_BASE, _GPIO_PINMASK_4);    //PA4 terminal analógica digital
+	R1 <4> <- 16   (midx: 0)
+	R0 <4> <- #GPIOA_BASE   (midx: 0)
+	CALL _GPIO_Analog_Input   (midx: 0)
+//FuncionRampa.c,33 :: 		RCC_APB1ENR.B29 = 1;   //Habilita reloj del APB1 para el DAC
+	R2 <1> <- 1   (midx: 0)
+	R0 <4> <- addr(RCC_APB1ENR)   (midx: 0)
+	[R0] <0> <- R2   (midx: 20)
+//FuncionRampa.c,34 :: 		DAC_CRbits.EN1 = 1;    //Enciende módulo DAC1
+	R0 <4> <- addr(DAC_CRbits+0)   (midx: 0)
+	[R0] <0> <- R2   (midx: 20)
+//FuncionRampa.c,35 :: 		DAC_CRbits.BOFF1 = 1;  //Enciende buffer del DAC1
+	R0 <4> <- addr(DAC_CRbits+0)   (midx: 0)
+	[R0] <0> <- R2   (midx: 20)
+//FuncionRampa.c,36 :: 		DAC_CR+= 0X38;         //Selecciona disparo mediante software
+	R0 <4> <- addr(DAC_CR)   (midx: 0)
+	R0 <4> <- [R0]   (midx: 0)
+	R1 <4> <-  R0 + 56   (midx: 2)
+	R0 <4> <- addr(DAC_CR)   (midx: 0)
+	[R0] <4> <- R1   (midx: 0)
+//FuncionRampa.c,37 :: 		DAC_CRbits.TEN1 = 1;   //Habilita la conversión del DAC
+	R0 <4> <- addr(DAC_CRbits+0)   (midx: 0)
+	[R0] <0> <- R2   (midx: 20)
+//FuncionRampa.c,38 :: 		frecuencia = 0;
+	R1 <2> <- 0   (midx: 0)
+	R0 <4> <- addr(_frecuencia)   (midx: 0)
+	[R0] <2> <- R1   (midx: 0)
+//FuncionRampa.c,40 :: 		while(1){
+1:   (midx: 0)
+//FuncionRampa.c,41 :: 		if(frecuencia%2==0){
+	R0 <4> <- addr(_frecuencia)   (midx: 0)
+	R2 <2> <- [R0]   (midx: 0)
+	R1 <2> <- 2   (midx: 0)
+	R0 <2> <-  R2 mod R1   (midx: 5)
+	if ( R0 != 0) then goto 3   (midx: 5)
+//FuncionRampa.c,42 :: 		TIM3_ARR = 63;
+	R1 <4> <- 63   (midx: 0)
+	R0 <4> <- addr(TIM3_ARR)   (midx: 0)
+	[R0] <4> <- R1   (midx: 0)
+//FuncionRampa.c,43 :: 		}
+	goto	4   (midx: 0)
+3:   (midx: 0)
+//FuncionRampa.c,45 :: 		TIM3_ARR = 142;
+	R1 <4> <- 142   (midx: 0)
+	R0 <4> <- addr(TIM3_ARR)   (midx: 0)
+	[R0] <4> <- R1   (midx: 0)
+//FuncionRampa.c,46 :: 		}
+4:   (midx: 0)
+//FuncionRampa.c,47 :: 		if(GPIOA_IDR.B0){
+	R1 <4> <- addr(GPIOA_IDR)   (midx: 0)
+	R0 <4> <- [R1]   (midx: 0)
+	if (!R0) then goto 5   (midx: 0)
+//FuncionRampa.c,48 :: 		frecuencia++;
+	R1 <4> <- addr(_frecuencia)   (midx: 0)
+	R0 <2> <- [R1]   (midx: 0)
+	R0 <2> <-  R0 + 1   (midx: 1)
+	[R1] <2> <- R0   (midx: 0)
+//FuncionRampa.c,49 :: 		}
+5:   (midx: 0)
+//FuncionRampa.c,50 :: 		Delay_ms(200);
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 2)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 5)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+//FuncionRampa.c,51 :: 		}
+	goto	1   (midx: 0)
+  end
+   (midx: 0)

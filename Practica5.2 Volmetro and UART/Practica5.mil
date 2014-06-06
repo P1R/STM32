@@ -1,0 +1,212 @@
+_Config_ptos:
+  begin   (midx: 0)
+//Practica5.c,38 :: 		void Config_ptos(void){
+_Config_ptos:
+  begin   (midx: 0)
+//Practica5.c,39 :: 		GPIO_Digital_Output(&GPIOB_BASE,_GPIO_PINMASK_10|_GPIO_PINMASK_11|_GPIO_PINMASK_12);
+	R1 <4> <- 7168   (midx: 0)
+	R0 <4> <- #GPIOB_BASE   (midx: 0)
+	CALL _GPIO_Digital_Output   (midx: 0)
+//Practica5.c,40 :: 		GPIO_Digital_Output(&GPIOB_BASE,_GPIO_PINMASK_13|_GPIO_PINMASK_14|_GPIO_PINMASK_15);
+	R1 <4> <- 57344   (midx: 0)
+	R0 <4> <- #GPIOB_BASE   (midx: 0)
+	CALL _GPIO_Digital_Output   (midx: 0)
+//Practica5.c,41 :: 		GPIO_Analog_input(&GPIOC_BASE,_GPIO_PINMASK_0); //PC0 = Canal 10 del ADC1
+	R1 <4> <- 1   (midx: 0)
+	R0 <4> <- #GPIOC_BASE   (midx: 0)
+	CALL _GPIO_Analog_Input   (midx: 0)
+  end
+   (midx: 0)
+_Config_adc:
+  begin   (midx: 0)
+//Practica5.c,43 :: 		void Config_adc(void){
+_Config_adc:
+  begin   (midx: 0)
+//Practica5.c,44 :: 		ADC_Set_Input_Channel(_ADC_CHANNEL_10); // Seleciona el canal 10 como entrada de
+	R0 <2> <- 1024   (midx: 0)
+	CALL _ADC_Set_Input_Channel   (midx: 0)
+//Practica5.c,45 :: 		ADC1_Init();
+	CALL _ADC1_Init   (midx: 0)
+  end
+   (midx: 0)
+_Config_UART1:
+  begin   (midx: 0)
+//Practica5.c,48 :: 		void Config_UART1(void){
+_Config_UART1:
+  begin   (midx: 0)
+//Practica5.c,49 :: 		UART1_Init(9600);              // Initialize UART module at 56000 bps
+	R0 <4> <- 9600   (midx: 0)
+	CALL _UART1_Init   (midx: 0)
+//Practica5.c,50 :: 		Delay_ms(100);                  // Wait for UART module to stabilize
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 2)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 5)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+//Practica5.c,51 :: 		UART1_Write_Text("Inicio");
+	R0 <4> <- #?lstr3_Practica5   (midx: 0)
+	R0 <4> <- R0   (midx: 0)
+	CALL _UART1_Write_Text   (midx: 0)
+//Practica5.c,52 :: 		UART1_Write(13);
+	R0 <2> <- 13   (midx: 0)
+	CALL _UART1_Write   (midx: 0)
+//Practica5.c,53 :: 		UART1_Write(10);
+	R0 <2> <- 10   (midx: 0)
+	CALL _UART1_Write   (midx: 0)
+//Practica5.c,54 :: 		Lcd_Out(1, 1, "Inicia UART1");
+	R0 <4> <- #?lstr4_Practica5   (midx: 0)
+	R2 <4> <- R0   (midx: 0)
+	R1 <1> <- 1   (midx: 0)
+	R0 <1> <- 1   (midx: 0)
+	CALL _Lcd_Out   (midx: 0)
+//Practica5.c,55 :: 		delay_ms(2000);
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 2)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 5)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+  end
+   (midx: 0)
+_delay:
+  begin   (midx: 0)
+//Practica5.c,75 :: 		void delay(unsigned long contador) // Función para generar retardo
+_delay:
+  begin   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R0 <4> <- R0   (midx: 0)
+   (midx: 0)
+	R0 <4> <- R0   (midx: 0)
+   (midx: 0)
+//Practica5.c,77 :: 		while(--contador);
+5:   (midx: 0)
+   (midx: 0)
+	R1 <4> <-  R0 - 1   (midx: 2)
+   (midx: 0)
+	R0 <4> <- R1   (midx: 0)
+   (midx: 0)
+	if (!R1) then goto 6   (midx: 0)
+   (midx: 0)
+   (midx: 0)
+	R0 <4> <- R0   (midx: 0)
+	goto	5   (midx: 0)
+6:   (midx: 0)
+  end
+   (midx: 0)
+_Proceso:
+  begin   (midx: 0)
+//Practica5.c,58 :: 		void Proceso(void){
+_Proceso:
+  begin   (midx: 0)
+//Practica5.c,62 :: 		adc_value = ADC1_Get_Sample(10);//valores para lectura directa en leds con anodo común
+	R0 <2> <- 10   (midx: 0)
+	CALL _ADC1_Get_Sample   (midx: 0)
+	R1 <4> <- addr(_adc_value)   (midx: 0)
+	[R1] <2> <- R0   (midx: 0)
+//Practica5.c,63 :: 		volts = R*adc_value;
+	R0 <4> <- (type cast)R0   (midx: 0)
+	R2 <4> <- 7.228327E-004   (midx: 0)
+	R0 <4> <-  R2 * R0   (midx: 8)
+//Practica5.c,64 :: 		FloatToStr(volts,val);
+	R1 <4> <- addr(Proceso_val_L0)   (midx: 0)
+	R1 <4> <- R1   (midx: 0)
+	R0 <4> <- R0   (midx: 0)
+	CALL _FloatToStr   (midx: 0)
+//Practica5.c,66 :: 		Lcd_Out(1, 1, "Voltaje:");
+	R0 <4> <- #?lstr5_Practica5   (midx: 0)
+	R2 <4> <- R0   (midx: 0)
+	R1 <1> <- 1   (midx: 0)
+	R0 <1> <- 1   (midx: 0)
+	CALL _Lcd_Out   (midx: 0)
+//Practica5.c,67 :: 		Lcd_Out(2, 3, val);
+	R0 <4> <- addr(Proceso_val_L0)   (midx: 0)
+	R2 <4> <- R0   (midx: 0)
+	R1 <1> <- 3   (midx: 0)
+	R0 <1> <- 2   (midx: 0)
+	CALL _Lcd_Out   (midx: 0)
+//Practica5.c,68 :: 		delay(0xFFFFF);
+	R0 <4> <- 1048575   (midx: 0)
+	CALL _delay   (midx: 0)
+//Practica5.c,69 :: 		Lcd_Cmd(_LCD_CLEAR);
+	R0 <1> <- 1   (midx: 0)
+	CALL _Lcd_Cmd   (midx: 0)
+//Practica5.c,70 :: 		UART1_Write_Text(val);       // and send data via UART
+	R0 <4> <- addr(Proceso_val_L0)   (midx: 0)
+	R0 <4> <- R0   (midx: 0)
+	CALL _UART1_Write_Text   (midx: 0)
+//Practica5.c,71 :: 		UART1_Write(13);
+	R0 <2> <- 13   (midx: 0)
+	CALL _UART1_Write   (midx: 0)
+//Practica5.c,72 :: 		UART1_Write(10);
+	R0 <2> <- 10   (midx: 0)
+	CALL _UART1_Write   (midx: 0)
+  end
+   (midx: 0)
+_main:
+  begin   (midx: 0)
+//Practica5.c,21 :: 		void main() {
+_main:
+  begin   (midx: 0)
+//Practica5.c,22 :: 		Lcd_Init();
+	CALL _Lcd_Init   (midx: 0)
+//Practica5.c,23 :: 		Config_ptos();
+	CALL _Config_ptos   (midx: 0)
+//Practica5.c,24 :: 		Config_adc();
+	CALL _Config_adc   (midx: 0)
+//Practica5.c,25 :: 		Config_UART1();
+	CALL _Config_UART1   (midx: 0)
+//Practica5.c,26 :: 		Lcd_Cmd(_LCD_CLEAR);               // Clear display
+	R0 <1> <- 1   (midx: 0)
+	CALL _Lcd_Cmd   (midx: 0)
+//Practica5.c,27 :: 		Lcd_Out(1, 1, "9CM11-Volmetro");
+	R0 <4> <- #?lstr1_Practica5   (midx: 0)
+	R2 <4> <- R0   (midx: 0)
+	R1 <1> <- 1   (midx: 0)
+	R0 <1> <- 1   (midx: 0)
+	CALL _Lcd_Out   (midx: 0)
+//Practica5.c,28 :: 		delay_ms(2000);
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 2)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 5)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+//Practica5.c,29 :: 		Lcd_Cmd(_LCD_CLEAR);
+	R0 <1> <- 1   (midx: 0)
+	CALL _Lcd_Cmd   (midx: 0)
+//Practica5.c,30 :: 		Lcd_Cmd(_LCD_CURSOR_OFF);
+	R0 <1> <- 12   (midx: 0)
+	CALL _Lcd_Cmd   (midx: 0)
+//Practica5.c,32 :: 		Lcd_Out(1, 1, "Voltaje:");
+	R0 <4> <- #?lstr2_Practica5   (midx: 0)
+	R2 <4> <- R0   (midx: 0)
+	R1 <1> <- 1   (midx: 0)
+	R0 <1> <- 1   (midx: 0)
+	CALL _Lcd_Out   (midx: 0)
+//Practica5.c,33 :: 		while(1){
+1:   (midx: 0)
+//Practica5.c,34 :: 		Proceso();
+	CALL _Proceso   (midx: 0)
+//Practica5.c,35 :: 		}
+	goto	1   (midx: 0)
+  end
+   (midx: 0)

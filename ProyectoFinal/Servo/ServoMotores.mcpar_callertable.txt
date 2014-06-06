@@ -1,0 +1,18 @@
+main
+	Conf_puertos
+		GPIO_Digital_Input
+			GPIO_Config
+				GPIO_Clk_Enable
+		GPIO_Digital_Output
+			GPIO_Config
+	PWM_TIM2_Init
+		PWM_TIMx_Init
+			Get_Fosc_kHz
+	PWM_TIM2_Set_Duty
+		PWM_TIMx_Set_Duty
+	PWM_TIM2_Start
+		PWM_TIMx_Start
+			GPIO_Alternate_Function_Enable
+				GPIO_Configure_Pin
+					GPIO_Config
+	__FillZeros

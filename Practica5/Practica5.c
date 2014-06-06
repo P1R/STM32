@@ -14,14 +14,18 @@ void Lcd_Cmd();
 void Lcd_Out();
 
 unsigned int adc_value;
-const float R=805.8608059e-6;
+const float R=722.8327228e-6;
 
 void main(){
     Lcd_Init();
     Config_ptos();
     Config_adc();
     Lcd_Cmd(_LCD_CLEAR);               // Clear display
+    Lcd_Out(1, 1, "9CM11-Volmetro");
+    delay_ms(2000);
+    Lcd_Cmd(_LCD_CLEAR);
     Lcd_Cmd(_LCD_CURSOR_OFF);
+    
     Lcd_Out(1, 1, "Voltaje:");
 while(1){
         Proceso();

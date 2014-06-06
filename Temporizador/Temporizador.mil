@@ -1,0 +1,196 @@
+_ISR_temp:
+  begin   (midx: 0)
+//Temporizador.c,29 :: 		void ISR_temp() iv IVT_INT_TIM2 ics ICS_AUTO {
+_ISR_temp:
+  begin   (midx: 0)
+//Temporizador.c,30 :: 		TIM2_SR.UIF=0;     // LIMPIA LA BANDERA DE INTERRUPCION.
+	R1 <1> <- 0   (midx: 0)
+	R0 <4> <- addr(TIM2_SR)   (midx: 0)
+	[R0] <0> <- R1   (midx: 20)
+//Temporizador.c,31 :: 		SALIDA=~SALIDA;  // COMPLETA ESTDO DEL PUERTO
+	R1 <4> <- addr(SALIDA)   (midx: 0)
+	R0 <4> <- [R1]   (midx: 0)
+	R0 <1> <- ~R0   (midx: 20)
+	[R1] <0> <- R0   (midx: 0)
+  end
+   (midx: 0)
+_Conf_puertos:
+  begin   (midx: 0)
+//Temporizador.c,57 :: 		void Conf_puertos(void)
+_Conf_puertos:
+  begin   (midx: 0)
+//Temporizador.c,59 :: 		GPIO_Digital_Output(&GPIOC_BASE,_GPIO_PINMASK_8);
+	R1 <4> <- 256   (midx: 0)
+	R0 <4> <- #GPIOC_BASE   (midx: 0)
+	CALL _GPIO_Digital_Output   (midx: 0)
+//Temporizador.c,60 :: 		SALIDA=0;
+	R1 <1> <- 0   (midx: 0)
+	R0 <4> <- addr(SALIDA)   (midx: 0)
+	[R0] <0> <- R1   (midx: 0)
+  end
+   (midx: 0)
+_Conf_temp2:
+  begin   (midx: 0)
+//Temporizador.c,63 :: 		void Conf_temp2(void)
+_Conf_temp2:
+  begin   (midx: 0)
+//Temporizador.c,65 :: 		RCC_APB1ENR.TIM2EN = 1; // Habilita el timer 2 para usar el relog de APB1 (8 Mhz)
+	R1 <1> <- 1   (midx: 0)
+	R0 <4> <- addr(RCC_APB1ENR)   (midx: 0)
+	[R0] <0> <- R1   (midx: 20)
+//Temporizador.c,66 :: 		TIM2_CR1.CEN=0;        // Deshabilita el contador del timer 2
+	R1 <1> <- 0   (midx: 0)
+	R0 <4> <- addr(TIM2_CR1)   (midx: 0)
+	[R0] <0> <- R1   (midx: 20)
+//Temporizador.c,67 :: 		TIM2_PSC=7;            // Factor de división del preescalador: Freloj= Fapb1/(PSC + 1)= 1Mh
+	R1 <4> <- 7   (midx: 0)
+	R0 <4> <- addr(TIM2_PSC)   (midx: 0)
+	[R0] <4> <- R1   (midx: 0)
+//Temporizador.c,68 :: 		TIM2_ARR=0;          // Define el valor de desborde y reinicio del contador
+	R1 <4> <- 0   (midx: 0)
+	R0 <4> <- addr(TIM2_ARR)   (midx: 0)
+	[R0] <4> <- R1   (midx: 0)
+//Temporizador.c,69 :: 		NVIC_IntEnable(IVT_INT_TIM2); // Enmascaramiento de la interrupción del timer 2
+	R0 <4> <- 44   (midx: 0)
+	CALL _NVIC_IntEnable   (midx: 0)
+//Temporizador.c,70 :: 		TIM2_DIER.UIE=1;              // Habilita la generación de interrupción del timer 2
+	R1 <1> <- 1   (midx: 0)
+	R0 <4> <- addr(TIM2_DIER)   (midx: 0)
+	[R0] <0> <- R1   (midx: 20)
+//Temporizador.c,71 :: 		TIM2_CR1.CEN=1;               // Habilita el contador (inicio de conteo)
+	R0 <4> <- addr(TIM2_CR1)   (midx: 0)
+	[R0] <0> <- R1   (midx: 20)
+//Temporizador.c,72 :: 		EnableInterrupts();           // Habilita las interrupciones
+	CALL _EnableInterrupts   (midx: 0)
+  end
+   (midx: 0)
+_Config_UART1:
+  begin   (midx: 0)
+//Temporizador.c,75 :: 		void Config_UART1(void){
+_Config_UART1:
+  begin   (midx: 0)
+//Temporizador.c,76 :: 		UART1_Init(9600);
+	R0 <4> <- 9600   (midx: 0)
+	CALL _UART1_Init   (midx: 0)
+//Temporizador.c,77 :: 		Delay_ms(100);
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 2)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 5)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+//Temporizador.c,78 :: 		UART1_Write_Text("Inicio");
+	R0 <4> <- #?lstr1_Temporizador   (midx: 0)
+	R0 <4> <- R0   (midx: 0)
+	CALL _UART1_Write_Text   (midx: 0)
+//Temporizador.c,79 :: 		UART1_Write(13);
+	R0 <2> <- 13   (midx: 0)
+	CALL _UART1_Write   (midx: 0)
+//Temporizador.c,80 :: 		UART1_Write(10);
+	R0 <2> <- 10   (midx: 0)
+	CALL _UART1_Write   (midx: 0)
+  end
+   (midx: 0)
+_Proceso:
+  begin   (midx: 0)
+//Temporizador.c,83 :: 		void Proceso(void){
+_Proceso:
+  begin   (midx: 0)
+//Temporizador.c,86 :: 		if (UART1_Data_Ready())
+	CALL _UART1_Data_Ready   (midx: 0)
+	if (!R0) then goto 7   (midx: 0)
+//Temporizador.c,88 :: 		uart_rd = UART1_Read();
+	CALL _UART1_Read   (midx: 0)
+	R1 <4> <- addr(_uart_rd)   (midx: 0)
+	[R1] <1> <- R0   (midx: 0)
+//Temporizador.c,91 :: 		TIM2_ARR = tm1;
+	R1 <4> <- 1911   (midx: 0)
+	R0 <4> <- addr(TIM2_ARR)   (midx: 0)
+	[R0] <4> <- R1   (midx: 0)
+//Temporizador.c,92 :: 		}
+7:   (midx: 0)
+  end
+   (midx: 0)
+_main:
+  begin   (midx: 0)
+//Temporizador.c,34 :: 		void main() {
+_main:
+  begin   (midx: 0)
+//Temporizador.c,36 :: 		Conf_puertos();
+	CALL _Conf_puertos   (midx: 0)
+//Temporizador.c,37 :: 		Conf_temp2();
+	CALL _Conf_temp2   (midx: 0)
+//Temporizador.c,38 :: 		Config_UART1();
+	CALL _Config_UART1   (midx: 0)
+//Temporizador.c,40 :: 		TIM2_ARR = tm2;
+	R1 <4> <- 1911   (midx: 0)
+	R0 <4> <- addr(TIM2_ARR)   (midx: 0)
+	[R0] <4> <- R1   (midx: 0)
+//Temporizador.c,41 :: 		Delay_ms(100000);
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 2)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 5)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+//Temporizador.c,43 :: 		TIM2_ARR = tm2;
+	R1 <4> <- 0   (midx: 0)
+	R0 <4> <- addr(TIM2_ARR)   (midx: 0)
+	[R0] <4> <- R1   (midx: 0)
+//Temporizador.c,44 :: 		Delay_ms(100000);
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 2)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 5)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+//Temporizador.c,46 :: 		TIM2_ARR = tm2;
+	R1 <4> <- 1431   (midx: 0)
+	R0 <4> <- addr(TIM2_ARR)   (midx: 0)
+	[R0] <4> <- R1   (midx: 0)
+//Temporizador.c,47 :: 		Delay_ms(100000);
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 2)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 5)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+//Temporizador.c,49 :: 		TIM2_ARR = tm2;
+	R1 <4> <- 0   (midx: 0)
+	R0 <4> <- addr(TIM2_ARR)   (midx: 0)
+	[R0] <4> <- R1   (midx: 0)
+//Temporizador.c,50 :: 		Delay_ms(100000);
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 2)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 5)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+	asm: -1   (midx: 1)
+//Temporizador.c,51 :: 		while(1){
+4:   (midx: 0)
+//Temporizador.c,52 :: 		Proceso();
+	CALL _Proceso   (midx: 0)
+//Temporizador.c,53 :: 		}
+	goto	4   (midx: 0)
+  end
+   (midx: 0)

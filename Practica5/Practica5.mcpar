@@ -6,13 +6,13 @@ Value=-1
 [BUILD_TYPE]
 Value=0
 [ACTIVE_TAB]
-Value=..\Proyecto1\MyProject.c
+Value=Practica5.c
 [USE_EEPROM]
 Value=0
 [USE_HEAP]
 Value=0
 [HEAP_SIZE]
-Value=2000
+Value=0
 [EEPROM_DEFINITION]
 Value=
 [FILES]
@@ -24,9 +24,8 @@ Count=0
 Count=0
 ActiveImageIndex=-1
 [OPENED_FILES]
-Count=2
+Count=1
 File0=Practica5.c
-File1=..\Proyecto1\MyProject.c
 [EEPROM]
 Count=0
 [ACTIVE_COMMENTS_FILES]
@@ -34,10 +33,12 @@ Count=0
 [OTHER_FILES]
 Count=0
 [SEARCH_PATH]
-Count=3
+Count=5
 Path0=C:\mikroC PRO for ARM\defs\
-Path1=C:\Users\p1r0\Desktop\Sistemas de tiempo real\Laboratorio\Practica5\
-Path2=C:\mikroC PRO for ARM\Uses\ST M3\
+Path1=C:\Users\JorgeAlejandro\Documents\Sistemas de tiempo real\STM32-master\Practica5\
+Path2=C:\Users\Admin\Documents\Sistemas de tiempo real\STM32-master\Practica5\
+Path3=C:\Users\p1r0\Desktop\Sistemas de tiempo real\Laboratorio\Practica5\
+Path4=C:\mikroC PRO for ARM\Uses\ST M3\
 [HEADER_PATH]
 Count=0
 [HEADERS]
@@ -45,12 +46,14 @@ Count=0
 [PLDS]
 Count=0
 [Useses]
-Count=5
+Count=7
 File0=ADC
 File1=Lcd
 File2=Lcd_Constants
 File3=Conversions
 File4=C_String
+File5=C_Type
+File6=UART
 [EXPANDED NODES]
 Node1=Sources
 Count=1

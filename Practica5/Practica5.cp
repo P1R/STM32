@@ -1,4 +1,4 @@
-#line 1 "C:/Users/p1r0/Desktop/Sistemas de tiempo real/Laboratorio/Practica5/Practica5.c"
+#line 1 "C:/Users/Admin/Documents/Sistemas de tiempo real/STM32-master/Practica5/Practica5.c"
 sbit LCD_RS at GPIOB_ODR.B10;
 sbit LCD_EN at GPIOB_ODR.B11;
 sbit LCD_D4 at GPIOB_ODR.B12;
@@ -15,14 +15,18 @@ void Lcd_Cmd();
 void Lcd_Out();
 
 unsigned int adc_value;
-const float R=805.8608059e-6;
+const float R=722.8327228e-6;
 
 void main(){
  Lcd_Init();
  Config_ptos();
  Config_adc();
  Lcd_Cmd(_LCD_CLEAR);
+ Lcd_Out(1, 1, "9CM11-Volmetro");
+ delay_ms(2000);
+ Lcd_Cmd(_LCD_CLEAR);
  Lcd_Cmd(_LCD_CURSOR_OFF);
+
  Lcd_Out(1, 1, "Voltaje:");
 while(1){
  Proceso();
